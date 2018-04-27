@@ -6,12 +6,23 @@ Add your answers inline, below, with your pull request.
 
 1. List all of the main states a process may be in at any point in time on a
    standard Unix system. Briefly explain what each of these states mean.
+- `Created`: a new process is created and put on a "waiting list" for the `ready` state.
+- `Ready`: a process has been loaded into main memory and waits for execution on CPU.
+- `Running`: a process is being executed by CPU and running in either of two modes - kernel or user mode.
+- `Blocked`: a process stops execution and waits for an external change in state or some event.
+- `Terminated`: the program is no longer executing, but the process remains in the process table as a `zombie` process until its parent process calls the `wait` system call to read its exit status, at which point the process is removed from the process table, finally ending the process's lifetime..
 
 2. What is a Zombie Process? How does it get created? How does it get destroyed?
 
+- A `zombie` process is a process that has completed execution but still has entry in the process table. It is a process in the `terminated` state. It gets created via `exit system call`. It gets destroyed when the parent process reads its child's `exit status` via the `wait system call` and removes it from the process table.
+
 3. Describe the job of the Scheduler in the OS in general.
 
+- Scheduler decides which process the CPU should execute at a certain time. Here are examples of the scheduling algorithms: First In First Out, Shortest Job First, and Round Robin.
+
 4. Describe the benefits of the MLFQ over a plain Round-Robin scheduler.
+
+- MLFQ would like to make a system feel responsive to interactive users (i.e., users sitting and staring at the screen, waiting for a process to finish), and thus minimize response time; unfortunately, algorithms like Round Robin reduce response time but are terrible for turnaround time.
 
 ## Programming Exercise: The Lambda School Shell (`lssh`)
 
